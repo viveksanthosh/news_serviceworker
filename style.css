@@ -1,0 +1,12 @@
+header {
+    display: flex;
+    align-items: center;
+}
+
+header>* {
+    flex: 1;
+}
+
+#sources {
+    width: 30%
+}
