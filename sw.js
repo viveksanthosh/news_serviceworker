@@ -15,6 +15,11 @@ self.addEventListener('fetch', event => {
 
 const cacheFirst = async req => {
     const cachedResponse = await caches.match(req);
-    console.log(cachedResponse)
-    return cachedResponse || fetch(req);
+    if (cachedResponse)
+        return cachedResponse;
+
+    let res = await fetch(req);
+    const cache = await caches.open('others');
+    cache.put(req, res.clone());
+    return res;
 }
