@@ -3,7 +3,6 @@ const apiKey = 'ee6e8f12642745248590ff138c7b1134',
 
 const OptionsDom = document.getElementById('sources');
 const BodyDom = document.getElementById('body');
-
 const getSources = () => fetch(`https://newsapi.org/v2/sources?language=en&apiKey=${apiKey}`)
     .then(r => r.json())
     .then(({ sources }) => sources);
@@ -21,6 +20,14 @@ const main = async () => {
     OptionsDom.onchange = e => {
         const source = OptionsDom.value;
         refreshNews(source);
+    }
+    
+    if (navigator.serviceWorker) {
+        try {
+            navigator.serviceWorker.register('./sw.js').then(() => console.log('registered'))
+        } catch (e) {
+            console.log(e);
+        }
     }
 };
 
